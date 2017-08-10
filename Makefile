@@ -1,16 +1,33 @@
-all: wvm
+ROOT_DIR  := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
+SRC_DIR   := $(ROOT_DIR)/src
+BUILD_DIR := $(shell pwd)/build
+DIST_DIR  := $(shell pwd)
+
+SOURCES := $(shell find $(SRC_DIR) -type f -name "*.c" -print)
+OBJS    := $(SOURCES:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
+DEPS    := $(OBJS:%.o=%.d)
 
 CC      = gcc
-CFLAGS  = -fno-stack-protector -g
+CFLAGS  = -fno-stack-protector -D_GNU_SOURCE -g
+LDFLAGS = -lpthread
 
-.c.o:   $(CC) $(CFLAGS) \
-        -c -o $*.o $<
+WVM := $(DIST_DIR)/wvm
 
-OBJS =  jvm.o classloader.o interp_engine.o vm_error.o trace.o libelf.o safe_printf.o log.o
+all: $(WVM)
+	@ls -l $(WVM)
 
-wvm: $(OBJS)
-	$(CC) -o wvm $(OBJS) -lpthread
+$(WVM): $(OBJS) | $(DIST_DIR)
+	$(LINK.c) -o $@ $(OBJS)
+
+$(OBJS):  $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
+	$(COMPILE.c) -MMD -MP -MF $(@:%.o=%.d) -o $@ $<
+
+$(DIST_DIR) $(BUILD_DIR):
+	mkdir -p $@
 
 clean:
-	rm -f wvm *.o
+	rm -rf $(BUILD_DIR) $(WVM)
 
+-include $(DEPS)
+
+.PHONY: all wvm
