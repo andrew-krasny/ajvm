@@ -26,59 +26,57 @@
 #include "trace.h"
 #include "vm_error.h"
 
-void jvm_warning(int flag, char *fmt, ...)
-{
-        va_list arg;
-	char buf[1024];
+void jvm_warning(int flag, char *fmt, ...) {
+  va_list arg;
+  char buf[1024];
 
-        va_start(arg, fmt);
-        vsprintf(buf, fmt, arg);
-        va_end(arg);
+  va_start(arg, fmt);
+  vsprintf(buf, fmt, arg);
+  va_end(arg);
 
-        switch (flag) {
-        case VM_ERROR_CLASS_FILE:
-                printf("%s", buf);
-                break;
-        case VM_ERROR_MEMORY:
-                printf("%s", buf);
-                break;
-	case VM_ERROR_INTERP:
-                printf("%s", buf);
-		break;
-        default:
-                printf("VM Error: Unkown flag.\n");
-                break;
-        }
+  switch (flag) {
+    case VM_ERROR_CLASS_FILE:
+      printf("%s", buf);
+      break;
+    case VM_ERROR_MEMORY:
+      printf("%s", buf);
+      break;
+    case VM_ERROR_INTERP:
+      printf("%s", buf);
+      break;
+    default:
+      printf("VM Error: Unkown flag.\n");
+      break;
+  }
 
-	calltrace();
+  calltrace();
 }
 
-void jvm_error(int flag, char *fmt, ...)
-{
-        va_list arg;
-	char buf[1024];
+void jvm_error(int flag, char *fmt, ...) {
+  va_list arg;
+  char buf[1024];
 
-        va_start(arg, fmt);
-        vsprintf(buf, fmt, arg);
-        va_end(arg);
+  va_start(arg, fmt);
+  vsprintf(buf, fmt, arg);
+  va_end(arg);
 
-	switch (flag) {
-	case VM_ERROR_CLASS_FILE:
-                printf("%s", buf);
-		break;
-	case VM_ERROR_MEMORY:
-                printf("%s", buf);
-		break;
-	case VM_ERROR_INTERP:
-                printf("%s", buf);
-		break;
-	default:
-		printf("VM Error: Unkown flag.\n");
-		break;
-	}
+  switch (flag) {
+    case VM_ERROR_CLASS_FILE:
+      printf("%s", buf);
+      break;
+    case VM_ERROR_MEMORY:
+      printf("%s", buf);
+      break;
+    case VM_ERROR_INTERP:
+      printf("%s", buf);
+      break;
+    default:
+      printf("VM Error: Unkown flag.\n");
+      break;
+  }
 
-	calltrace();
-	mmap_exit();
-	calltrace_exit();
-	exit(0);
+  calltrace();
+  mmap_exit();
+  calltrace_exit();
+  exit(0);
 }
