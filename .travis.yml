@@ -3,4 +3,4 @@ language: c
 install: true
 compiler: gcc
 
-script: make
+script: make && make test
