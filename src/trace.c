@@ -63,7 +63,6 @@
 #include <sys/mman.h>
 #include <execinfo.h>
 
-#define __USE_GNU
 #include <ucontext.h>
 
 #include "trace.h"
@@ -356,7 +355,7 @@ void calltrace_gnu(void) {
 void show_calltrace(CALL_TRACE *trace) {
   char buff[1024];
 
-  snprintf(buff, sizeof (buff), "[<0x%x>] %s + 0x%x/0x%x\n",
+  snprintf(buff, sizeof (buff), "[<0x%lx>] %s + 0x%x/0x%x\n",
     trace->rip, trace->symbol_name, trace->offset, trace->size);
   safe_printf("%s", buff);
 }

@@ -239,19 +239,19 @@ int print_elf_hdr_elf_version(Elf64_Ehdr *elf_hdr) {
 }
 
 int print_elf_hdr_entry(Elf64_Ehdr *elf_hdr) {
-  printf("\tentry: 0x%016x\n", elf_hdr->e_entry);
+  printf("\tentry: 0x%016lx\n", elf_hdr->e_entry);
 
   return 0;
 }
 
 int print_elf_hdr_phoff(Elf64_Ehdr *elf_hdr) {
-  printf("\tProgram header table file offset: 0x%016x\n", elf_hdr->e_phoff);
+  printf("\tProgram header table file offset: 0x%016lx\n", elf_hdr->e_phoff);
 
   return 0;
 }
 
 int print_elf_hdr_shoff(Elf64_Ehdr *elf_hdr) {
-  printf("\tSection header table file offset: 0x%016x\n", elf_hdr->e_shoff);
+  printf("\tSection header table file offset: 0x%016lx\n", elf_hdr->e_shoff);
 
   return 0;
 }
@@ -401,7 +401,7 @@ void print_symtab(void) {
 
   printf("idx\tname\t\t\taddr\t\tsize\n");
   for (i = 0; i < elf_symtab_num; i++) {
-    printf("%2d\t%-16s\t0x%016x\t0x%016x\n",
+    printf("%2d\t%-16s\t0x%016lx\t0x%016lx\n",
       i, elf_str_table + elf_symtab[i].st_name,
       elf_symtab[i].st_value, elf_symtab[i].st_size);
   }
@@ -448,7 +448,7 @@ int __parse_elf_section(Elf64_Ehdr *elf_hdr) {
 
   printf("idx\tsh_name\t\t\tsh_type\t\tsh_addr\t\t\tsh_offset\t\tsh_size\t\n");
   for (i = 1; i < elf_hdr->e_shnum; i++) {
-    printf("%2d\t%-16s\t0x%08x\t0x%016x\t0x%016x\t0x%x\n",
+    printf("%2d\t%-16s\t0x%08x\t0x%016lx\t0x%016lx\t0x%lx\n",
       i, elf_shstr_table + elf_shdr[i].sh_name,
       elf_shdr[i].sh_type,
       elf_shdr[i].sh_addr, elf_shdr[i].sh_offset,

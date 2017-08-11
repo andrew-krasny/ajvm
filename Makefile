@@ -28,6 +28,10 @@ $(DIST_DIR) $(BUILD_DIR):
 clean:
 	rm -rf $(BUILD_DIR) $(WVM)
 
+test:
+	@mkdir -p /tmp/wvm
+	$(WVM) -v || true
+
 -include $(DEPS)
 
-.PHONY: all wvm
+.PHONY: all wvm clean test

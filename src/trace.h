@@ -16,6 +16,8 @@ typedef struct trace_st {
 } CALL_TRACE;
 
 unsigned long *top_bp;
+int calltrace_init(void);
+void calltrace_exit(void);
 void calltrace(void);
 void calltrace_gnu(void);
 void show_calltrace(CALL_TRACE *trace);

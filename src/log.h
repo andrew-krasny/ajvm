@@ -32,7 +32,7 @@ typedef struct log_arg {
   pthread_mutex_t log_lock;
 } LOG_ARG;
 
-void do_debug(LOG_LEVEL log_level, const char *file_name, char *function, int line, char *fmt, ...);
+void do_debug(LOG_LEVEL log_level, const char *file_name, const char *function, int line, char *fmt, ...);
 int check_log_size(void);
 
 int log_init(char *log_path, int log_level);

@@ -181,7 +181,7 @@ int debug_init(int debug_level)
         return 0;
 }
 
-void do_debug(LOG_LEVEL log_level, const char *file_name, char *function,
+void do_debug(LOG_LEVEL log_level, const char *file_name, const char *function,
                 int line, char *fmt, ...)
 {
         va_list arg;

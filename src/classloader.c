@@ -740,7 +740,7 @@ CLASS_FILED *__parse_class_filed(CLASS *jvm_class) {
     new_filed->name_index >= jvm_class->constant_pool_count) {
     jvm_error(VM_ERROR_CLASS_FILE, "JVM parse filed error.\n");
     free(new_filed);
-    return -1;
+    return NULL;
   }
 
   CLASS_READ_U2(new_filed->descriptor_index, p_mem)
@@ -749,7 +749,7 @@ CLASS_FILED *__parse_class_filed(CLASS *jvm_class) {
     new_filed->descriptor_index >= jvm_class->constant_pool_count) {
     jvm_error(VM_ERROR_CLASS_FILE, "JVM parse filed error.\n");
     free(new_filed);
-    return -1;
+    return NULL;
   }
 
   CLASS_READ_U2(new_filed->attributes_count, p_mem)

@@ -280,7 +280,7 @@ int jvm_interp_ldc(u2 len, char *symbol, void *base) {
 
 int jvm_interp_ldc_w(u2 len, char *symbol, void *base) {
 	if (jvm_arg->disass_class) {
-		printf("%s %x %x\n", symbol, base + 1, base + 3);
+		printf("%s %p %p\n", symbol, base + 1, base + 3);
 		return 0;
 	}
 }
@@ -1369,7 +1369,7 @@ int jvm_interp_ireturn(u2 len, char *symbol, void *base) {
   }
 
   return_addr = curr_jvm_stack->return_addr;
-  printf("#return addr: 0x%x\n", return_addr);
+  printf("#return addr: %p\n", return_addr);
 
   if (curr_jvm_stack->prev_stack)
     prev_stack = curr_jvm_stack->prev_stack;
@@ -1389,7 +1389,7 @@ int jvm_interp_ireturn(u2 len, char *symbol, void *base) {
   if (jvm_stack_depth == 0) {
     jvm_pc.pc += len;
   } else {
-    printf("#return addr: 0x%x\n", return_addr);
+    printf("#return addr: %p\n", return_addr);
     jvm_pc.pc = return_addr;
   }
 }
